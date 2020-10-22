@@ -33,8 +33,18 @@ class dbg():
             return
 
 class mirror():
+
+    def file(custom_string):
+        try:
+            file = open("headset_output.csv", "a+")
+            file.write(str(custom_string) + "\r\n")
+            file.close()
+            return
+        except OSError as exp:
+            print(str(exp))
+            return
+
     def text(custom_string):
-        
         try:
             print(str(custom_string))
             return
@@ -365,15 +375,18 @@ class socketIO():
             return
             
     def sendData(self, text):
-        
+
         if eval(self.io.getInfo("status")) == False:
             return
             
         if eval(self.io.getInfo("noweb")) == True:
-            if "outputdata" not in self.io.getInfo("config"):
+            if eval(self.io.getInfo("fileoutput")) == True:
+                mirror.file(str(text))
+                return
+            elif "outputdata" not in self.io.getInfo("config"):
                 mirror.text(str(text))
             return "noweb"
-        
+
         if self.uid == 0:
             try:
                 text += "\r\n"

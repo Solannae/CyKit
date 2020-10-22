@@ -76,6 +76,7 @@ if arg_count == 1 or arg_count > 5 or sys.argv[1] == "help" or sys.argv[1] == "-
     mirror("  'pywinusb'            Specifies to use the pywinusb libraries to connect to the USB device.\r\n\r\n")
     mirror("                         Defaults to using libusb libraries.\r\n\r\n")
     mirror("  'noweb'               Displays data. (without requiring a TCP connection.)\r\n\r\n")
+    mirror("  'fileoutput'          Outputs data as a csv file. Only works when used in pair with noweb (for now).\r\n\r\n")
     mirror("  'bluetooth'  Attempt to AUTO-DETECT an already paired bluetooth device.\r\n\r\n")
     mirror("  'bluetooth=xxxxxxxx'  Connect to an already paired bluetooth device, use the hex digit found in the devices pairing name.\r\n\r\n")
     mirror("                         The pairing name can easily be found in Windows Bluetooth settings.\r\n\r\n")
@@ -147,6 +148,9 @@ def main(CyINIT):
 
     if "openvibe" in parameters:
         cy_IO.setInfo("openvibe","True")
+
+    if "fileoutput" in parameters:
+        cy_IO.setInfo("fileoutput", "True")
 
 
     headset = eeg.EEG(MODEL, cy_IO, parameters)
